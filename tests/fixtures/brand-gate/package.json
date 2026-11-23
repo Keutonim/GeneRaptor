@@ -1,0 +1,10 @@
+{
+  "name": "brand-gate-fixture",
+  "version": "0.0.0",
+  "private": true,
+  "description": "FIXTURE — intentionally contains forbidden brand tokens.",
+  "scripts": {
+    "start": "node start.mjs",
+    "legacy": "initech-frontend"
+  }
+}
