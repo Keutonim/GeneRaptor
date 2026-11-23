@@ -1,0 +1,18 @@
+# Line-ending contract (factory hardening round, item 7a — defect D-C2-1).
+#
+# The repository is stored with LF and must be CHECKED OUT with LF on every
+# host, including Windows hosts with `core.autocrlf=true`. A CRLF checkout
+# breaks Vite's SSR transform: its hashbang regexp /^#!.*\n/ only matches an
+# LF-terminated shebang, so a CRLF shebang survives the transform, the
+# imported module fails to parse and vitest collects 0 tests instead of
+# running the suite.
+#
+# `text=auto` keeps git's own binary detection, `eol=lf` forces LF in the
+# working tree. This file changes attribute resolution ONLY — it does not
+# rewrite a single tracked blob (the index already stores LF for all of them).
+* text=auto eol=lf
+
+# The db-bootstrap fixture carries intentional NUL bytes (SQLite header):
+# it must stay binary and must never be line-ending normalised — not even by
+# an explicit `git add --renormalize .`.
+tests/unit/db-bootstrap.test.mjs -text

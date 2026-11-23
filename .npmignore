@@ -1,0 +1,13 @@
+# The `files` allowlist in package.json is the single source of truth for the
+# published tarball. This file exists so npm does NOT fall back to .gitignore
+# (which ignores dist/ for local builds) while packing — entries listed in
+# `files` must win.
+#
+# Local-only paths that must never reach npm.
+tests/e2e/.data/
+*.bak
+*.log
+*.tgz
+.env
+.env.*
+!.env.example
