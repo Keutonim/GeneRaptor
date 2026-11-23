@@ -1,0 +1,224 @@
+/**
+ * M8 — оформление модалки «Сведения о статье».
+ *
+ * Модалка переехала с legacy-инлайновых цветов на дизайн-токены: палитра,
+ * шкала отступов 4px и радиусы берутся из styles/tokens.css, поэтому тёмная
+ * тема и смена языка интерфейса не требуют правок здесь.
+ */
+
+.details__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 23, 23, 0.45);
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+}
+
+.details__panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  padding: var(--space-5);
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  color: var(--text-primary);
+}
+
+.details__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.details__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.details__close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  border-radius: var(--radius-control);
+}
+
+.details__close:hover {
+  background: var(--surface-raised);
+  color: var(--text-primary);
+}
+
+.details__loading {
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.details__error {
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--danger);
+}
+
+.details__body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.details__section {
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-3) 0;
+}
+
+.details__section--last {
+  border-bottom: none;
+}
+
+.details__summary {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-primary);
+  list-style: none;
+  user-select: none;
+}
+
+.details__summary::-webkit-details-marker {
+  display: none;
+}
+
+.details__subtitle {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.details__value {
+  margin-top: var(--space-2);
+  color: var(--text-primary);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.details__muted {
+  color: var(--text-muted);
+}
+
+.details__muted--small {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.details__grid {
+  margin-top: var(--space-2);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.details__provider {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.details__source-list {
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-5);
+}
+
+.details__source {
+  margin-bottom: var(--space-2);
+}
+
+.details__source-title {
+  color: var(--text-primary);
+}
+
+.details__source-link {
+  color: var(--accent);
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.details__source-snippet {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.details__roles {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.details__role {
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
+}
+
+.details__role--error {
+  color: var(--danger);
+}
+
+.details__role-error {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.details__cover {
+  margin-top: var(--space-3);
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.details__cover-image {
+  width: 96px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--border);
+  display: block;
+}
+
+.details__cover-info {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.details__cover-title {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.details__note {
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.5;
+  background: var(--surface-raised);
+}
+
+.details__note--warning {
+  color: var(--warning);
+}
+
+.details__note--danger {
+  color: var(--danger);
+}

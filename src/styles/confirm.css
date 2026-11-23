@@ -1,0 +1,108 @@
+/**
+ * Confirmation dialog for a destructive action.
+ *
+ * The page behind the dialog is dimmed by a flat overlay (no blur, no glow);
+ * the panel itself carries a solid surface, a hairline and one neutral
+ * shadow, so it reads as an object that floats above the app instead of a
+ * transparent block inside the page flow.
+ */
+
+.confirm__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: var(--overlay);
+  animation: confirm-fade var(--duration-enter) var(--ease);
+}
+
+.confirm__panel {
+  display: grid;
+  gap: var(--space-4);
+  width: fit-content;
+  min-width: 320px;
+  max-width: 420px;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: confirm-rise var(--duration-enter) var(--ease);
+}
+
+.confirm__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.confirm__icon {
+  flex: 0 0 auto;
+  color: var(--danger);
+}
+
+.confirm__title {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.confirm__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+.confirm__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* The destructive action is a fill, not an outline: on a quiet panel an
+   outlined red button reads as a second secondary action.
+   The selector is doubled on purpose — component CSS is emitted before
+   src/styles/shell.css, so a single class would lose to `.button` there. */
+.button.button--danger-fill {
+  border-color: var(--danger);
+  background: var(--danger);
+  color: var(--on-danger);
+}
+
+.button.button--danger-fill:hover:not(:disabled) {
+  border-color: var(--danger-ink);
+  background: var(--danger-ink);
+}
+
+@keyframes confirm-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes confirm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirm__overlay,
+  .confirm__panel {
+    animation: none;
+  }
+}

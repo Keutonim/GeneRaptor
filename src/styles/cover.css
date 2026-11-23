@@ -1,0 +1,176 @@
+/**
+ * «Генерация обложек» settings panel.
+ *
+ * The panel lives on the design tokens, so the light and the dark theme
+ * look the same deliberate object: a quiet grid of blocks, one accent
+ * (the primary action), one control size, and states that carry meaning
+ * without a coloured block.
+ */
+
+.cover-settings {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* Standalone placement (not embedded in a settings section) keeps the card. */
+.cover-settings--card {
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.cover-settings__head {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.cover-settings__title {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.cover-settings__hint {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+/* One block per group: the reading order is the block order. */
+.cover-settings__block {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.cover-settings__block-title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.cover-settings__stack {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* A label, its control and its note are one unit. */
+.cover-settings__param {
+  display: grid;
+  gap: var(--space-2);
+  align-items: start;
+  align-content: start;
+}
+
+.cover-settings__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.cover-settings__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+/* A quiet plate — a state, not a coloured card. */
+.cover-settings__notice {
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.cover-settings__notice--warning {
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.cover-settings__note {
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface-sunken);
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.cover-settings__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* Switch: one track, one thumb, the app accent when it is on. */
+.cover-settings__switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.cover-settings__switch-input {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.cover-settings__switch-track {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--surface-raised);
+  transition: background var(--duration-hover) var(--ease), border-color var(--duration-hover) var(--ease);
+}
+
+.cover-settings__switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform var(--duration-hover) var(--ease);
+}
+
+.cover-settings__switch-input:checked + .cover-settings__switch-track {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.cover-settings__switch-input:checked + .cover-settings__switch-track .cover-settings__switch-thumb {
+  transform: translateX(20px);
+}
+
+.cover-settings__switch-input:focus-visible + .cover-settings__switch-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .cover-settings__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

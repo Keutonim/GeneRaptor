@@ -1,0 +1,147 @@
+/**
+ * M6 — design tokens.
+ *
+ * Light palette is the default; the dark palette is applied through
+ * `data-theme="dark"` (explicit choice) or through `prefers-color-scheme`
+ * while the `auto` theme keeps the attribute off <html>.
+ *
+ * SCOPE NOTE: M7 owns the final typography/palette pass; these tokens
+ * already carry the current values so the shell renders in the intended
+ * "typesetting room" look.
+ */
+
+:root {
+  color-scheme: light;
+  /* Перекрывают устаревшую палитру и градиент из styles.css. */
+  background: var(--bg);
+  font-family: var(--font-sans);
+
+  /* — light palette */
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --surface-raised: #f4f4f3;
+  --surface-sunken: #f0efed;
+  --border: #e8e8e8;
+  --border-strong: #e3e3e3;
+  --text-primary: #171717;
+  --text-secondary: #525252;
+  --text-muted: #6e6e6e;
+  --accent: #b42318;
+  --accent-ink: #b42318;
+  --accent-wash: #f9eded;
+  --danger: #dc2626;
+  --danger-ink: #b91c1c;
+  --success: #15803d;
+  --warning: #8a5a00;
+  --on-accent: #ffffff;
+  --on-danger: #ffffff;
+  /* — dimming layer behind a modal panel (flat, no blur) */
+  --overlay: rgba(23, 23, 23, 0.45);
+
+  /* — typography
+     A real system stack: every family below is actually present on the
+     machine, so the browser never falls through a dead declaration and the
+     Cyrillic and the Latin glyphs come from the same face. */
+  --font-sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Mono", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* — spacing (4px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* — radii */
+  --radius-control: 8px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
+
+  /* — motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-hover: 140ms;
+  --duration-menu: 180ms;
+  --duration-enter: 320ms;
+
+  --topbar-height: 56px;
+  --page-padding: var(--space-8);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  background: var(--bg);
+
+  /* — dark palette */
+  --bg: #141415;
+  --surface: #19191b;
+  --surface-raised: #232325;
+  --surface-sunken: #0f0f10;
+  --border: #2e2e30;
+  --border-strong: #323234;
+  --text-primary: #ededed;
+  --text-secondary: #a1a1a6;
+  --text-muted: #8a8a90;
+  --accent: #f97066;
+  --accent-ink: #f97066;
+  --accent-wash: #342324;
+  --danger: #f06568;
+  --danger-ink: #d95357;
+  --success: #4cc38a;
+  --warning: #d9a441;
+  --on-accent: #141415;
+  --on-danger: #141415;
+  --overlay: rgba(0, 0, 0, 0.62);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg: #141415;
+    --surface: #19191b;
+    --surface-raised: #232325;
+    --surface-sunken: #0f0f10;
+    --border: #2e2e30;
+    --border-strong: #323234;
+    --text-primary: #ededed;
+    --text-secondary: #a1a1a6;
+    --text-muted: #8a8a90;
+    --accent: #f97066;
+    --accent-ink: #f97066;
+    --accent-wash: #342324;
+    --danger: #f06568;
+    --danger-ink: #d95357;
+    --success: #4cc38a;
+    --warning: #d9a441;
+    --on-accent: #141415;
+    --on-danger: #141415;
+    --overlay: rgba(0, 0, 0, 0.62);
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

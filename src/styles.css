@@ -1,0 +1,740 @@
+:root {
+  color-scheme: light;
+  font-family:
+    var(--font-sans);
+  line-height: 1.5;
+  font-weight: 400;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Legacy aliases resolved against the M7 design tokens (src/styles/tokens.css). */
+  --page-bg: var(--bg);
+  --surface-muted: var(--surface-raised);
+  --surface-subtle: var(--surface-sunken);
+  --accent-strong: var(--accent-ink);
+  --accent-soft: var(--accent-wash);
+  --shadow-soft: 0 10px 30px rgba(17, 27, 33, 0.08);
+  --panel-radius: 14px;
+  /* ── W3: пост-проверка качества (статика) ──
+     Палитра синхронна с инлайн-бейджами статусов в списках
+     (completed/waiting/error) — «консистентно с
+     существующими бейджами», без новой семантики цветов. */
+  --quality-ok-bg: var(--surface-raised);
+  --quality-ok-text: var(--success);
+  --quality-warn-bg: var(--surface-raised);
+  --quality-warn-text: var(--warning);
+  --quality-fail-bg: var(--surface-raised);
+  --quality-fail-text: var(--danger);
+  --quality-rule-fail-blocker: var(--danger);
+  --quality-rule-fail-major: var(--warning);
+  --quality-rule-fail-minor: var(--text-muted);
+  --quality-rule-pass: var(--success);
+  --quality-rule-skipped: var(--text-muted);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.app-shell {
+  height: 100vh;
+  position: relative;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.app-shell__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.app-shell__frame {
+  position: relative;
+  height: calc(100vh - 48px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+}
+
+#root :is(main, section, aside, nav, header, footer) {
+  min-width: 0;
+}
+
+#root :is(button, [role="button"], input, textarea, select):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#root :is(button, [role="button"]).is-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+#root :is(button, [role="button"]).is-secondary {
+  background: var(--surface-muted);
+  color: var(--text-primary);
+}
+
+#root :is(.panel, .surface) {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--panel-radius);
+}
+
+#root :is(.muted-surface) {
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--panel-radius);
+}
+
+#root :is(.subtle-text) {
+  color: var(--text-secondary);
+}
+
+.generaptor-sidebar,
+.generaptor-main,
+.generaptor-settings {
+  scrollbar-gutter: stable;
+}
+
+.generaptor-sidebar::-webkit-scrollbar,
+.generaptor-main::-webkit-scrollbar,
+.generaptor-settings::-webkit-scrollbar {
+  width: 8px;
+}
+
+.generaptor-sidebar::-webkit-scrollbar-thumb,
+.generaptor-main::-webkit-scrollbar-thumb,
+.generaptor-settings::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.generaptor-volume-control {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.generaptor-volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  min-width: 0;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--accent);
+  background: transparent;
+}
+
+.generaptor-volume-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--border-strong);
+}
+
+.generaptor-volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -5px;
+  border: 3px solid var(--accent);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 2px 6px rgba(17, 27, 33, 0.2);
+}
+
+.generaptor-volume-slider::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--border);
+}
+
+.generaptor-volume-slider::-moz-range-progress {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.generaptor-volume-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--accent);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 2px 6px rgba(17, 27, 33, 0.2);
+}
+
+.generaptor-volume-ticks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.generaptor-volume-ticks span:nth-child(2) {
+  text-align: center;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.generaptor-volume-ticks span:nth-child(3) {
+  text-align: right;
+}
+
+.generaptor-article-scroll-container {
+  max-height: 600px;
+  overflow-y: auto;
+  padding: 18px;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.generaptor-article-scroll-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.generaptor-article-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.generaptor-select,
+.generaptor-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: inherit;
+}
+
+/* Scale-on-press for the searchable-dropdown-trigger class.
+   Inline styles can't express :active or prefers-reduced-motion, so this
+   lives in CSS. Value is 0.96 per make-interfaces-feel-better — never below. */
+.searchable-dropdown-trigger:active {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .searchable-dropdown-trigger {
+    transition: none;
+  }
+  .searchable-dropdown-trigger:active {
+    transform: none;
+  }
+}
+
+/* Scale-on-press для кнопок копирования статьи (класс .copy-action-btn).
+   Inline styles не выражают :active и prefers-reduced-motion, поэтому здесь.
+   Value 0.96 per make-interfaces-feel-better — никогда не меньше.
+   Transition только transform, никакого transition: all. */
+.copy-action-btn {
+  transition: transform var(--duration-hover) var(--ease);
+}
+.copy-action-btn:active {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy-action-btn {
+    transition: none;
+  }
+  .copy-action-btn:active {
+    transform: none;
+  }
+}
+
+.generaptor-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Scale-on-press для кнопки «Придумать тему» в idle-состоянии.
+   Inline styles не выражают :active и prefers-reduced-motion, поэтому здесь.
+   Value 0.96 per make-interfaces-feel-better — никогда не меньше.
+   Transition только transform, никакого transition: all. */
+.topic-suggest-btn {
+  transition: transform var(--duration-hover) var(--ease);
+}
+.topic-suggest-btn:active {
+  transform: scale(0.96);
+}
+
+/* Subtle pulsing animation во время isSuggesting — opacity 0.6↔1.0.
+   CSS keyframes, не framer-motion (нет в package.json).
+   Прерывается мгновенно при смене состояния (принцип 4). */
+@keyframes topic-suggest-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.topic-suggest-btn--pulsing {
+  animation: topic-suggest-pulse 1.4s var(--ease) infinite;
+}
+
+/* Cross-fade для rotating hints (принцип 7 — без motion library).
+   var(--ease) для enter/exit. */
+@keyframes topic-hint-fade {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.topic-hint {
+  animation: topic-hint-fade var(--duration-menu) var(--ease);
+}
+
+/* Панель генерации — rotating hints во время генерации статьи.
+   Та же keyframe-анимация, что и у topic-hint: cross-fade с лёгким
+   translateY (принцип 7 — без motion library). Класс отдельный, чтобы
+   будущая правка одной из анимаций не задела другую. */
+.article-progress-hint {
+  animation: topic-hint-fade var(--duration-menu) var(--ease);
+}
+
+/* Scale-on-press для кнопки «Остановить» в панели генерации (принцип 12).
+   Inline styles не выражают :active, поэтому здесь. Value 0.96 —
+   никогда не меньше. Transition только transform, никакого transition: all.
+   Disabled-состояние не получает scale — disabled-кнопка не тактильная. */
+.article-stop-btn:not(:disabled) {
+  transition: transform var(--duration-hover) var(--ease);
+}
+.article-stop-btn:not(:disabled):active {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topic-suggest-btn,
+  .topic-suggest-btn--pulsing,
+  .topic-hint,
+  .article-progress-hint {
+    transition: none;
+    animation: none;
+  }
+  .topic-suggest-btn:active,
+  .article-stop-btn:not(:disabled):active {
+    transform: none;
+  }
+}
+
+.generaptor-select:disabled,
+.generaptor-textarea:disabled {
+  background: var(--surface-raised);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+@media (max-width: 960px) {
+  .app-shell {
+    padding: 16px;
+  }
+
+  .app-shell__frame {
+    height: calc(100vh - 32px);
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 0;
+  }
+
+  .app-shell__frame {
+    height: 100vh;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   T5-UI: таймер mm:ss у generating-строк очереди.
+   Моноширинный стек + tabular-nums — цифры не прыгают на тике.
+   Точка пульсирует (opacity 1↔0.35), сигнал «процесс жив». */
+.queue-elapsed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@keyframes queue-elapsed-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.queue-elapsed-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  animation: queue-elapsed-pulse 1.2s var(--ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .queue-elapsed-badge__dot {
+    animation: none;
+  }
+}
+
+/* T6-UI: disabled-кнопки копирования markdown (старые статьи без
+   contentMarkdown) — не тактильные: без scale-пресса, курсор not-allowed. */
+.copy-action-btn:disabled {
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   T1-поддержка: таблицы внутри article-контента. Контейнер .article-content —
+   это div с dangerouslySetInnerHTML (contentHtml после DOMPurify) в модалках
+   списках генерации и истории. Стили scoped под контейнер статьи:
+   глобальные table-правила не задевают таблицы очереди/истории (inline).
+   Система цветов — переменные из :root (светлая тема). */
+.article-content table {
+  width: 100%;
+  margin: 12px 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.article-content th,
+.article-content td {
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Вертикальные внутренние границы: не :last-child, чтобы внешняя рамка
+   не дублировалась толщиной у правого края. */
+.article-content th:not(:last-child),
+.article-content td:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.article-content thead th {
+  background: var(--surface-subtle);
+  font-weight: 500;
+}
+
+/* Зебра-строки по чётным строкам tbody. */
+.article-content tbody tr:nth-child(even) {
+  background: var(--surface-muted);
+}
+
+/* Последняя строка без нижней границы — рамку даёт сам table. */
+.article-content tbody tr:last-child td,
+.article-content tbody tr:last-child th {
+  border-bottom: none;
+}
+
+/* Узкие экраны: таблица сама становится scroll-контейнером
+   (классический display:block + overflow-x:auto паттерн), не рвёт
+   модалку/редактор. На десктопе — обычная full-width таблица. */
+@media (max-width: 640px) {
+  .article-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   W3 (postcheck): секция «Качество статьи» в ArticleDetailsModal и янтарный
+   ⚠-маркер needs_review в строках списков. Статика —
+   reduced-motion не нужен. Цвета — переменные из :root (палитра существующих
+   статус-бейджей). */
+
+/* Баннер-вердикт: ok — зелёный / warn — янтарный / fail — красный. */
+.quality-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.quality-banner--ok {
+  background: var(--quality-ok-bg);
+  color: var(--quality-ok-text);
+}
+
+.quality-banner--warn {
+  background: var(--quality-warn-bg);
+  color: var(--quality-warn-text);
+}
+
+.quality-banner--fail {
+  background: var(--quality-fail-bg);
+  color: var(--quality-fail-text);
+}
+
+/* Причина needs_review — заметно над чек-листом (fail-причина из правил
+   или QC-фолбэк с бэка). */
+.quality-review-reason {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: var(--quality-warn-bg);
+  color: var(--quality-warn-text);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Группа правил одного блока (head/seo/body/…). */
+.quality-block {
+  margin-bottom: 8px;
+}
+
+.quality-block__title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+/* Строка правила: иконка-статус + id/message/details. */
+.quality-rule {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.quality-rule__icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 20px;
+}
+
+.quality-rule__icon--pass {
+  color: var(--quality-rule-pass);
+  opacity: 0.55; /* pass — приглушённо: норма не кричит */
+}
+
+.quality-rule__icon--fail-blocker {
+  color: var(--quality-rule-fail-blocker);
+}
+
+.quality-rule__icon--fail-major {
+  color: var(--quality-rule-fail-major);
+}
+
+.quality-rule__icon--fail-minor {
+  color: var(--quality-rule-fail-minor);
+}
+
+.quality-rule__icon--skipped {
+  color: var(--quality-rule-skipped);
+}
+
+.quality-rule__body {
+  min-width: 0;
+}
+
+.quality-rule__id {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.quality-rule__severity {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.quality-rule__message {
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+.quality-rule__details {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 2px;
+  word-break: break-word;
+}
+
+/* «Показать все N» / «Свернуть к замечаниям» — паттерн кнопок модалки. */
+.quality-toggle {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Янтарный ⚠-маркер качества у needs_review-строк (списки генерации и истории):
+   компактный круг с TriangleAlert 13px. nowrap + flex-shrink:0 — не
+   переносится и не сжимается рядом с «%», таймером и «Шаблоном». */
+.quality-alert-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--quality-warn-bg);
+  color: var(--quality-warn-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   ux-fixes: подпись-причина needs_review в строках списков (U3) и
+   инлайн-предупреждение о склеенной теме в форме создания (U2). */
+
+/* U3: короткая приглушённая подпись причины needs_review под статус-бейджем
+   (списки генерации и истории). Текст уже обрезан до ~60 символов с «…»
+   (truncateReviewReason); ellipsis+nowrap — не разъезжается в узких строках,
+   полная причина — в title-подсказке и детальной карточке. */
+.review-reason-inline {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* U2: инлайн-предупреждение «тема склеена из поисковых фраз» — паттерн
+   quality-review-reason (амбер-палитра), кнопки — паттерн quality-toggle. */
+.topic-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--quality-warn-bg);
+  color: var(--quality-warn-text);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.topic-warning__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.topic-warning__body {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.topic-warning__text {
+  word-break: break-word;
+}
+
+.topic-warning__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topic-warning__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--quality-warn-text);
+  padding: 6px 10px;
+  background: var(--surface);
+  color: var(--quality-warn-text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.topic-warning__btn--primary {
+  background: var(--quality-warn-text);
+  color: var(--surface);
+}
+
+.topic-warning__btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
