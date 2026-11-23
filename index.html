@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <script>
+      /* M7 — theme + locale bootstrap.
+         Runs before the first paint: the stored theme is written onto <html>
+         and the stored locale onto <html lang>, so the app starts in the
+         chosen theme without a flash of the wrong one. The "auto" mode keeps
+         the attribute off and the stylesheet follows prefers-color-scheme. */
+      (function () {
+        try {
+          var theme = window.localStorage.getItem('generaptor.theme');
+          if (theme === 'light' || theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', theme);
+          }
+          var locale = window.localStorage.getItem('generaptor.locale');
+          if (locale === 'ru' || locale === 'en') {
+            document.documentElement.setAttribute('lang', locale);
+          }
+        } catch (error) {
+          /* Storage unavailable — the app falls back to its own detection. */
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <!-- defense-in-depth for the one-time token that rides the URL
+         fragment on the first load — no request may carry a Referer. -->
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="theme-color"
+      content="#fafaf9"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#141415"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23b42318'/%3E%3Cpath d='M18 18h18a10 10 0 0 1 0 20H26v8h-8V18Zm8 8v4h10a2 2 0 0 0 0-4H26Z' fill='white'/%3E%3Cpath d='M42 40h6v6h-6z' fill='white'/%3E%3C/svg%3E"
+    />
+    <title>GeneRaptor</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script
+      type="module"
+      src="/src/main.tsx"
+    ></script>
+  </body>
+</html>

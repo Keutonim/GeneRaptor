@@ -1,0 +1,46 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.local
+# Runtime data dirs — root-level only, must not match src/data/.
+/data/
+/covers/
+test-results/
+playwright-report/
+# The e2e run must never rewrite a TRACKED file.
+# All generated e2e artifacts live under tests/.artifacts/ (HTML report +
+# screenshots); the legacy directories stay ignored (the mock reporter still
+# writes tests/report/mock/) so a leftover file can never dirty the tree again.
+tests/.artifacts/
+tests/report/
+tests/screenshots/
+coverage/
+*.log
+.DS_Store
+# E2E stack: throw-away SQLite database created by
+# tests/e2e/server-stack.mjs — never committed.
+tests/e2e/.data/
+# Editor/tool backups of tracked files (e.g. prisma/schema.prisma.bak) must
+# never be committed — they drift from the schema and hide real changes.
+*.bak
+
+# --- public OSS hygiene -------------------------------------------------
+# OS / editor / IDE noise must never reach the public repository.
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+# Local `npm pack` archives.
+*.tgz
+*.tar.gz
+# Merge and patch leftovers.
+*.orig
+*.rej
+# Local secret-store encryption key (server/lib/secret-store.mjs). It unlocks
+# every provider key in the local database, so it must never be committed —
+# not even when GENERAPTOR_DATA_DIR points inside the working tree.
+provider-secrets.key

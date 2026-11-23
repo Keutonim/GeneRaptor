@@ -1,0 +1,106 @@
+{
+  "name": "generaptor",
+  "version": "0.1.0",
+  "description": "Local studio for AI-assisted article generation: research, agent pipeline, covers and export — one command, one SQLite file.",
+  "keywords": [
+    "ai",
+    "article-generation",
+    "seo",
+    "openrouter",
+    "ollama",
+    "sqlite",
+    "self-hosted",
+    "local-first"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "generaptor": "start.mjs"
+  },
+  "files": [
+    "start.mjs",
+    "dist",
+    "server",
+    "src",
+    "src/features/settings/SearchSourcesBlock.tsx",
+    "src/features/settings/helpers/searchSources.ts",
+    "prisma/schema.prisma",
+    "scripts/ensure-prisma-client.mjs",
+    "scripts/db-studio.mjs",
+    "scripts/brand-gate.mjs",
+    "scripts/universal-gate.mjs",
+    "index.html",
+    "vite.config.ts",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    ".env.example",
+    "README.md",
+    "README.ru.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node start.mjs",
+    "dev": "vite",
+    "dev:api": "node start.mjs --api-only",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint:brand": "node scripts/brand-gate.mjs",
+    "lint:universal": "node scripts/universal-gate.mjs",
+    "postinstall": "node scripts/ensure-prisma-client.mjs",
+    "prepack": "npm run build",
+    "db:studio": "node scripts/db-studio.mjs",
+    "pretest": "node scripts/ensure-prisma-client.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:mock": "playwright test --config=tests/e2e/playwright.mock.config.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "overrides": {
+    "qs": "^6.16.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "cheerio": "^1.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dompurify": "^3.4.11",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.2",
+    "jsdom": "^29.1.1",
+    "lucide-react": "^0.400.0",
+    "marked": "^18.0.7",
+    "prisma": "^5.22.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "ws": "^8.21.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/dompurify": "^3.0.5",
+    "@types/express": "^4.17.25",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/ws": "^8.18.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/coverage-v8": "^4.1.9",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5",
+    "vitest": "^4.1.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keutonim/generaptor.git"
+  },
+  "homepage": "https://github.com/Keutonim/generaptor#readme",
+  "bugs": {
+    "url": "https://github.com/Keutonim/generaptor/issues"
+  }
+}
